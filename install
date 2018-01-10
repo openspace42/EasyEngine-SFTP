@@ -49,11 +49,11 @@ echo
 
 sed -i "/Subsystem/c\Subsystem sftp internal-sftp" "$ssh_config_file"
 
-if ! grep -q "Match Group sftp" "$ssh_config_file"
+if ! grep -q "Match Group $sftp_group" "$ssh_config_file"
 then
 cat <<EOT >> "$ssh_config_file"
 
-Match Group sftp
+Match Group $sftp_group
     ChrootDirectory /home/%u
     ForceCommand internal-sftp
     PasswordAuthentication yes
@@ -64,7 +64,20 @@ Match Group sftp
 EOT
 fi
 
-addgroup sftp
+if ! grep -q $sftp_group /etc/group
+then
+        addgroup "$sftp_group"
+fi
 
-echo "Finished setup."
+rsync -aAXx $source_dir/ $install_dir/ --include=add-site-to-user --include=add-user --include=functions --exclude="*"
+
+echo "${b}Now removing installer directory...${x}"
+echo
+rm -r $source_dir
+echo "${b}Finished removing installer directory.${x}"
+echo
+
+
+
+echo "${b}Installation complete!${x}"
 echo

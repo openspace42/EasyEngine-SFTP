@@ -46,6 +46,7 @@ define_vars() {
 	short_name="ee-sftp"
 
 	ssh_config_file="/etc/ssh/sshd_config"
+	sftp_group="sftp_access"
 
 	os-define_vars
 

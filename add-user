@@ -43,7 +43,7 @@ echo "${b}Adding SFTP user | ${g}$1${x}${b} |..."
 echo
 
 adduser --gecos "" $1
-adduser $1 sftp
+adduser $1 $sftp_group
 
 echo "${b}Finished adding SFTP user."
 echo
