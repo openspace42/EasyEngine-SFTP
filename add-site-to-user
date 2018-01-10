@@ -40,6 +40,8 @@ choose_local_site
 echo "${b}Adding access to site | ${g}$sel_site${x}${b} | to SFTP user | ${g}$sel_user${x}${b} |...${x}"
 echo
 
+sudo -u $sel_user mkdir -p /home/$sel_user/www/$sel_site_name
+
 if ! grep -q "/home/$sel_user/www/$sel_site_name" /etc/fstab
 then
         echo "${b}Adding line to fstab...${x}"
