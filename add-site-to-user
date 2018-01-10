@@ -53,5 +53,7 @@ else
 	echo site already added for user to fstab
 fi
 
+mount -a
+
 echo "${b}Finished site access to SFTP user.${x}"
 echo
