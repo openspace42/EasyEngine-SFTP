@@ -76,12 +76,13 @@ choose_local_user() {
 
 		select sel_user in "${options[@]}"
 		do
-		        IFS=' ' read name ip <<< $opt
+			echo
+		        IFS=' ' read name ip <<< $sel_user
 		        test -n "$sel_user" && break
 		        echo ">>> Invalid Selection"
 		done
 
-		echo "${b}Backup file $sel_user selected.${x}"
+		echo "${b}User  $sel_user selected.${x}"
 		echo
 
                 valid=n
@@ -101,7 +102,7 @@ choose_local_user() {
                                 ;;
                         n)
                                 echo -e "\\n"
-                                echo "${b}No problem, please select your desired file again now...${x}"
+                                echo "${b}No problem, please select your desired user again now...${x}"
                                 echo
                                 valid=y
                                 accept=n
@@ -153,11 +154,11 @@ choose_local_site() {
 		select sel_site in $www_dir/*
 		do
 			echo
-		        test -n "$d" && break
+		        test -n "$sel_site" && break
 		        echo ">>> Invalid Selection"
 		done
 
-		echo "${b}Backup file $sel_site selected.${x}"
+		echo "${b}Site $sel_site selected.${x}"
 		echo
 
                 valid=n
@@ -177,7 +178,7 @@ choose_local_site() {
                                 ;;
                         n)
                                 echo -e "\\n"
-                                echo "${b}No problem, please select your desired file again now...${x}"
+                                echo "${b}No problem, please select your desired site again now...${x}"
                                 echo
                                 valid=y
                                 accept=n
@@ -199,5 +200,7 @@ choose_local_site() {
                 done
 
         done
+
+	sel_site_name=${sel_site#/var/www/}
 
 }

@@ -46,7 +46,10 @@ adduser --gecos "" $1
 echo
 adduser $1 $sftp_group
 echo
-chown root:root "/home/$1"
+chown root:root "/home/$1/"
+
+mkdir "/home/$1/www/"
+chown "$1":"$1" "/home/$1/www/"
 
 echo "${b}Finished adding SFTP user.${x}"
 echo
