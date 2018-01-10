@@ -82,7 +82,7 @@ choose_local_user() {
 		        echo ">>> Invalid Selection"
 		done
 
-		echo "${b}User  $sel_user selected.${x}"
+		echo "${b}User $sel_user selected.${x}"
 		echo
 
                 valid=n
