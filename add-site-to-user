@@ -30,17 +30,17 @@ echo
 
 ################################################################################
 
-echo "${b}Adding site access to SFTP user..."
+echo "${b}Adding site access to SFTP user...${x}"
 echo
 
 choose_local_user
 
 choose_local_site
 
-echo "${b}Adding access to site | ${g}$sel_site${x}${b} | to SFTP user | ${g}$sel_user${x}${b} |..."
+echo "${b}Adding access to site | ${g}$sel_site${x}${b} | to SFTP user | ${g}$sel_user${x}${b} |...${x}"
 echo
 
 
 
-echo "${b}Finished adding SFTP user."
+echo "${b}Finished adding SFTP user.${x}"
 echo

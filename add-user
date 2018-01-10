@@ -39,11 +39,14 @@ fi
 
 ################################################################################
 
-echo "${b}Adding SFTP user | ${g}$1${x}${b} |..."
+echo "${b}Adding SFTP user | ${g}$1${x}${b} |...${x}"
 echo
 
 adduser --gecos "" $1
+echo
 adduser $1 $sftp_group
+echo
+chown root:root "/home/$1"
 
-echo "${b}Finished adding SFTP user."
+echo "${b}Finished adding SFTP user.${x}"
 echo

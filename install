@@ -69,6 +69,8 @@ then
         addgroup "$sftp_group"
 fi
 
+service ssh restart
+
 rsync -aAXx $source_dir/ $install_dir/ --include=add-site-to-user --include=add-user --include=functions --exclude="*"
 
 echo "${b}Now removing installer directory...${x}"
