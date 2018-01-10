@@ -1,0 +1,70 @@
+#!/bin/bash
+
+# Set bash environment error management
+
+set -e
+set -u
+
+# Source local functions file
+
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+. $script_dir/functions
+
+# Check for root user runtime
+
+check_root
+
+################################################################################
+
+# Download and source openspace functions file
+
+download_os_functions
+source_os_functions
+
+################################################################################
+
+os-define_formatting
+
+define_vars
+
+echo
+
+################################################################################
+
+if [[ "${@#--return-check}" = "$@" ]]
+then
+        echo "${r}${b}This script must not be run directly.${x}"
+	echo
+        echo "${b}You should instead run the | ${x}${g}${b}setup${x}${b} | script and it will take care of the installation itself.${x}"
+	echo
+        echo "${b}Exiting...${x}"
+        echo
+        exit 1
+fi
+
+################################################################################
+
+echo "${b}Initiating installer...${x}"
+echo
+
+sed -i "/Subsystem/c\Subsystem sftp internal-sftp" "$ssh_config_file"
+
+if ! grep -q "Match Group sftp" "$ssh_config_file"
+then
+cat <<EOT >> "$ssh_config_file"
+
+Match Group sftp
+    ChrootDirectory /home/%u
+    ForceCommand internal-sftp
+    PasswordAuthentication yes
+    PermitTunnel no
+    AllowAgentForwarding no
+    AllowTcpForwarding no
+    X11Forwarding no
+EOT
+fi
+
+addgroup sftp
+
+echo "Finished setup."
+echo

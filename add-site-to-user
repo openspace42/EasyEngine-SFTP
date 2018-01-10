@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# Set bash environment error management
+
+set -e
+set -u
+
+# Source local functions file
+
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+. $script_dir/functions
+
+# Check for root user runtime
+
+check_root
+
+################################################################################
+
+# Source openspace functions file
+
+source_os_functions
+
+################################################################################
+
+os-define_formatting
+
+define_vars
+
+echo
+
+################################################################################
+
+echo "${b}Adding site access to SFTP user..."
+echo
+
+choose_local_user
+
+choose_local_site
+
+echo "${b}Adding access to site | ${g}$sel_site${x}${b} | to SFTP user | ${g}$sel_user${x}${b} |..."
+echo
+
+
+
+echo "${b}Finished adding SFTP user."
+echo

@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# Set bash environment error management
+
+set -e
+set -u
+
+if [[ $EUID -ne 0 ]]
+then
+        echo "${r}${b}This script must be run as root${x}"
+        echo
+        echo "${b}Exiting...${x}"
+        echo
+        exit 1
+fi
+
+################################################################################
+
+echo
+
+now="$(date +"%Y-%m-%d_%H-%M-%S")"
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+### Define latest version
+latest_vers="$(grep 'refs/tags/' $script_dir/.git/packed-refs | tail -1 | awk '{print $2}' | sed "s|refs/tags/v||g")"
+
+short_name="ee-sftp"
+base_dir=/root/openspace42
+install_dir=$base_dir/$short_name
+conf_dir=$install_dir/conf
+
+if [ -f $conf_dir/beta ]
+then
+        echo "- * - !!! - * - !!! - * - !!! - * - !!! - * - !!! - * - !!! - * - !!! - * - !!! -"
+	echo
+        echo "Installing bleeding-edge version of $short_name up to latest git commit."
+        echo
+        echo "[delete the | $conf_dir/beta | file to cancel your opt-in to beta versions]"
+        echo
+        echo "- * - !!! - * - !!! - * - !!! - * - !!! - * - !!! - * - !!! - * - !!! - * - !!! -"
+        ( cd $script_dir && bash ./install --return-check )
+        echo "bleeding_edge $now" > "$conf_dir"/installed_version
+else
+        echo "Installing $short_name v$latest_vers"
+        echo
+	( cd $script_dir && git checkout tags/v$latest_vers && bash ./install --return-check )
+        echo "$latest_vers" > "$conf_dir"/installed_version
+fi
