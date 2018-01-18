@@ -44,6 +44,7 @@ define_vars() {
 
 	proj_name="EasyEngine-SFTP"
 	short_name="ee-sftp"
+	author_name="openspace42"
 
 	ssh_config_file="/etc/ssh/sshd_config"
 	sftp_group="sftp_access"

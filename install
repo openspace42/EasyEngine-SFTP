@@ -79,7 +79,7 @@ rm -r $source_dir
 echo "${b}Finished removing installer directory.${x}"
 echo
 
-os-install_dependencies bindfs
+os-install_dependencies -p bindfs
 
 echo "${b}Installation complete!${x}"
 echo
