@@ -79,6 +79,12 @@ rsync -aAXx $source_dir/ $install_dir/ --include=add-site-to-user --include=add-
 
 os-install_dependencies -p bindfs
 
+### Set installation complete checkfile with installed version
+
+cp $conf_dir/version/version_initiated $conf_dir/version/version_installed
+
+### Remove installer directory
+
 echo "${b}Now removing installer directory...${x}"
 echo
 rm -r $source_dir
