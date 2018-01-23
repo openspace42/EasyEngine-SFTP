@@ -7,8 +7,8 @@ set -u
 
 # Source local functions file
 
-script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-. $script_dir/functions
+source_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+. $source_dir/functions
 
 # Check for root user runtime
 
@@ -44,6 +44,10 @@ fi
 
 ################################################################################
 
+os-check_install_version
+
+################################################################################
+
 echo "${b}Initiating installer...${x}"
 echo
 
@@ -73,13 +77,13 @@ service ssh restart
 
 rsync -aAXx $source_dir/ $install_dir/ --include=add-site-to-user --include=add-user --include=functions --exclude="*"
 
+os-install_dependencies -p bindfs
+
 echo "${b}Now removing installer directory...${x}"
 echo
 rm -r $source_dir
 echo "${b}Finished removing installer directory.${x}"
 echo
-
-os-install_dependencies -p bindfs
 
 echo "${b}Installation complete!${x}"
 echo
