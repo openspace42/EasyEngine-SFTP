@@ -8,15 +8,12 @@ os_bash_functions_version=0.1.0
 
 define_vars() {
 
-	########################################################################
-	###################### Insert your variables here ######################
-	########################################################################
-
 	proj_name="EasyEngine-SFTP"
 	short_name="ee-sftp"
 	author_name="openspace42"
 
-	########################################################################
+	ssh_config_file="/etc/ssh/sshd_config"
+	sftp_group="sftp_access"
 
 	os-define_vars
 
