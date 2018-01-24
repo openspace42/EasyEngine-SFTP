@@ -44,13 +44,13 @@ sudo -u $sel_user mkdir -p /home/$sel_user/www/$sel_site_name
 
 if ! grep -q "/home/$sel_user/www/$sel_site_name" /etc/fstab
 then
-        echo "${b}Adding line to fstab...${x}"
-        echo
-	echo "bindfs#$sel_site /home/$sel_user/www/$sel_site_name fuse force-user=$sel_user,force-group=$sel_user,create-for-user=www-data,create-for-group=www-data,create-with-perms=0770,chgrp-ignore,chown-ignore,chmod-ignore 0 0" >> /etc/fstab
+    echo "${b}Adding line to fstab...${x}"
+    echo
+    echo "bindfs#$sel_site /home/$sel_user/www/$sel_site_name fuse force-user=$sel_user,force-group=$sel_user,create-for-user=www-data,create-for-group=www-data,create-with-perms=0770,chgrp-ignore,chown-ignore,chmod-ignore 0 0" >> /etc/fstab
 else
-        echo "${b}Site already present in fstab...${x}"
-        echo
-	echo site already added for user to fstab
+    echo "${b}Site already present in fstab...${x}"
+    echo
+    echo site already added for user to fstab
 fi
 
 mount -a &> /dev/null

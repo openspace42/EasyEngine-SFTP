@@ -31,13 +31,13 @@ define_vars
 
 if [[ "${@#--return-check}" = "$@" ]]
 then
-        echo "${r}${b}This script must not be run directly.${x}"
-	echo
-        echo "${b}You should instead run the | ${x}${g}${b}setup${x}${b} | script and it will take care of the installation itself.${x}"
-	echo
-        echo "${b}Exiting...${x}"
-        echo
-        exit 1
+    echo "${r}${b}This script must not be run directly.${x}"
+    echo
+    echo "${b}You should instead run the | ${x}${g}${b}setup${x}${b} | script and it will take care of the installation itself.${x}"
+    echo
+    echo "${b}Exiting...${x}"
+    echo
+    exit 1
 fi
 
 ################################################################################
@@ -58,9 +58,9 @@ sed -i "/Subsystem/c\Subsystem sftp internal-sftp" "$ssh_config_file"
 
 if ! grep -q "Match Group $sftp_group" "$ssh_config_file"
 then
-cat <<EOT >> "$ssh_config_file"
+    cat <<EOT >> "$ssh_config_file"
 
-Match Group $sftp_group
+    Match Group $sftp_group
     ChrootDirectory /home/%u
     ForceCommand internal-sftp
     PasswordAuthentication yes
@@ -68,12 +68,12 @@ Match Group $sftp_group
     AllowAgentForwarding no
     AllowTcpForwarding no
     X11Forwarding no
-EOT
+    EOT
 fi
 
 if ! grep -q $sftp_group /etc/group
 then
-        addgroup "$sftp_group"
+    addgroup "$sftp_group"
 fi
 
 service ssh restart
