@@ -1,33 +1,35 @@
 #!/bin/bash
 
-# Set bash environment error management
+### openspace bash installer v0.1.0 [https://github.com/openspace42/bash_installer]
+
+################################################################################
+
+### Set bash environment error management
 
 set -e
 set -u
 
-# Source local functions file
+### Source local functions file
 
+echo
 source_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 . $source_dir/functions
 
-# Check for root user runtime
+### Source openspace functions file
 
-check_root
-
-################################################################################
-
-# Download and source openspace functions file
-
-download_os_functions
 source_os_functions
 
-################################################################################
+### Define formatting
 
 os-define_formatting
 
+### Define variables
+
 define_vars
 
-echo
+### Check for any already existing installation
+
+os-check_install_version
 
 ################################################################################
 
@@ -42,14 +44,10 @@ then
         exit 1
 fi
 
-################################################################################
-
-os-check_install_version
-
-################################################################################
-
-echo "${b}Initiating installer...${x}"
+echo "${b}Initiating install...${x}"
 echo
+
+################################################################################
 
 sed -i "/Subsystem/c\Subsystem sftp internal-sftp" "$ssh_config_file"
 
@@ -79,17 +77,8 @@ rsync -aAXx $source_dir/ $install_dir/ --include=add-site-to-user --include=add-
 
 os-install_dependencies -p bindfs
 
-### Set installation complete checkfile with installed version
+################################################################################
 
-cp $conf_dir/version/version_initiated $conf_dir/version/version_installed
+### Mark installer as completed successfully
 
-### Remove installer directory
-
-echo "${b}Now removing installer directory...${x}"
-echo
-rm -r $source_dir
-echo "${b}Finished removing installer directory.${x}"
-echo
-
-echo "${b}Installation complete!${x}"
-echo
+touch $source_dir/install_complete
