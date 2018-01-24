@@ -46,6 +46,8 @@ fi
 
 os-check_install_version
 
+### All ready for installation
+
 echo "${b}Initiating install...${x}"
 echo
 
